@@ -77,7 +77,7 @@ namespace TrackMyMpg.Controllers
             }
 
             var vehicle = await db.Vehicles.FindAsync(id);
-            if (vehicle == null)
+            if (vehicle == null || vehicle.Userid != User.Identity.GetUserId())
             {
                 return HttpNotFound();
             }
@@ -94,6 +94,11 @@ namespace TrackMyMpg.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(vehicle.Userid != User.Identity.GetUserId())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
                 db.Entry(vehicle).State = EntityState.Modified;
                 await db.SaveChangesAsync();
 
@@ -113,7 +118,7 @@ namespace TrackMyMpg.Controllers
             }
 
             var vehicle = await db.Vehicles.FindAsync(id);
-            if (vehicle == null)
+            if (vehicle == null || vehicle.Userid != User.Identity.GetUserId())
             {
                 return HttpNotFound();
             }
@@ -128,6 +133,11 @@ namespace TrackMyMpg.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             var vehicle = await db.Vehicles.FindAsync(id);
+
+            if (vehicle.Userid != User.Identity.GetUserId())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             db.Vehicles.Remove(vehicle);
             await db.SaveChangesAsync();
