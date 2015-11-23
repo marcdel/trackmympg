@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web;
-using System.Web.Security;
 using TrackMyMpg.Models;
 
 [assembly: PreApplicationStartMethod(typeof(PreApplicationTasks), "Initializer")]
@@ -34,9 +33,7 @@ public class AdminUserInitializationModule : IHttpModule
                 var dbContext = new ApplicationDbContext();
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dbContext));
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(dbContext));
-
-                //new InitializeSimpleMembershipAttribute().OnActionExecuting(null);
-
+                
                 if (userManager.FindByEmail(adminEmail) == null) {
                     userManager.Create(new ApplicationUser { UserName = adminName, Email = adminEmail }, adminPassword);
                 }
