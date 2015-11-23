@@ -96,7 +96,7 @@ namespace TrackMyMpg.Controllers
             {
                 if(vehicle.Userid != User.Identity.GetUserId())
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return HttpNotFound();
                 }
 
                 db.Entry(vehicle).State = EntityState.Modified;
@@ -136,7 +136,7 @@ namespace TrackMyMpg.Controllers
 
             if (vehicle.Userid != User.Identity.GetUserId())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return HttpNotFound();
             }
 
             db.Vehicles.Remove(vehicle);
