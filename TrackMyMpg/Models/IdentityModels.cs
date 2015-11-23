@@ -21,6 +21,7 @@ namespace TrackMyMpg.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Make> Makes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

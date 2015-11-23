@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,9 +183,14 @@
     <Compile Include="Migrations\201511230126079_ChangeUserIdToString.Designer.cs">
       <DependentUpon>201511230126079_ChangeUserIdToString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511230406277_AddMakes.cs" />
+    <Compile Include="Migrations\201511230406277_AddMakes.Designer.cs">
+      <DependentUpon>201511230406277_AddMakes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Make.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="PreApplicationTasks.cs" />
@@ -251,6 +257,11 @@
     <Content Include="Views\Vehicles\Details.cshtml" />
     <Content Include="Views\Vehicles\Edit.cshtml" />
     <Content Include="Views\Vehicles\Index.cshtml" />
+    <Content Include="Views\Makes\Create.cshtml" />
+    <Content Include="Views\Makes\Delete.cshtml" />
+    <Content Include="Views\Makes\Details.cshtml" />
+    <Content Include="Views\Makes\Edit.cshtml" />
+    <Content Include="Views\Makes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -269,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511230126079_ChangeUserIdToString.resx">
       <DependentUpon>201511230126079_ChangeUserIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511230406277_AddMakes.resx">
+      <DependentUpon>201511230406277_AddMakes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
