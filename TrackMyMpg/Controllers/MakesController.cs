@@ -17,14 +17,14 @@ namespace TrackMyMpg.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Makes
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Index()
         {
             return View(await db.Makes.ToListAsync());
         }
 
         // GET: Makes/Details/5
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,7 +40,7 @@ namespace TrackMyMpg.Controllers
         }
 
         // GET: Makes/Create
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -51,7 +51,7 @@ namespace TrackMyMpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Create([Bind(Include = "Id,Name")] Make make)
         {
             if (ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace TrackMyMpg.Controllers
         }
 
         // GET: Makes/Edit/5
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,7 +85,7 @@ namespace TrackMyMpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] Make make)
         {
             if (ModelState.IsValid)
@@ -98,7 +98,7 @@ namespace TrackMyMpg.Controllers
         }
 
         // GET: Makes/Delete/5
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -116,7 +116,7 @@ namespace TrackMyMpg.Controllers
         // POST: Makes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Make make = await db.Makes.FindAsync(id);
