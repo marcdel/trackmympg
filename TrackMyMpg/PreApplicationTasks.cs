@@ -21,7 +21,7 @@ public class AdminUserInitializationModule : IHttpModule
 
     private const string adminEmail = "admin@trackmympg.com";
     private const string adminName = "admin";
-    private const string adminPassword = "password";
+    private const string adminPassword = "Test12!";
     private const string adminRole = "Administrator";
 
     void IHttpModule.Init(HttpApplication context)
