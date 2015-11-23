@@ -34,7 +34,7 @@ namespace TrackMyMpg.Controllers
             }
 
             var vehicle = await db.Vehicles.FindAsync(id);
-            if (vehicle == null)
+            if (vehicle == null || vehicle.Userid != User.Identity.GetUserId())
             {
                 return HttpNotFound();
             }
