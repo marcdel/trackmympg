@@ -20,7 +20,7 @@ namespace TrackMyMpg.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var vehicles = db.Vehicles.Where(vehicle => vehicle.Userid == userId);
+            var vehicles = db.Vehicles.Where(vehicle => vehicle.UserId == userId);
 
             return View(vehicles);
         }
@@ -34,7 +34,7 @@ namespace TrackMyMpg.Controllers
             }
 
             var vehicle = await db.Vehicles.FindAsync(id);
-            if (vehicle == null || vehicle.Userid != User.Identity.GetUserId())
+            if (vehicle == null || vehicle.UserId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
             }
@@ -57,7 +57,7 @@ namespace TrackMyMpg.Controllers
         {
             if (ModelState.IsValid)
             {
-                vehicle.Userid = User.Identity.GetUserId();
+                vehicle.UserId = User.Identity.GetUserId();
 
                 db.Vehicles.Add(vehicle);
                 await db.SaveChangesAsync();
@@ -77,7 +77,7 @@ namespace TrackMyMpg.Controllers
             }
 
             var vehicle = await db.Vehicles.FindAsync(id);
-            if (vehicle == null || vehicle.Userid != User.Identity.GetUserId())
+            if (vehicle == null || vehicle.UserId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
             }
@@ -90,11 +90,11 @@ namespace TrackMyMpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Userid,Make,Mpg")] Vehicle vehicle)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,UserId,Make,Mpg")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                if(vehicle.Userid != User.Identity.GetUserId())
+                if(vehicle.UserId != User.Identity.GetUserId())
                 {
                     return HttpNotFound();
                 }
@@ -118,7 +118,7 @@ namespace TrackMyMpg.Controllers
             }
 
             var vehicle = await db.Vehicles.FindAsync(id);
-            if (vehicle == null || vehicle.Userid != User.Identity.GetUserId())
+            if (vehicle == null || vehicle.UserId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
             }
@@ -134,7 +134,7 @@ namespace TrackMyMpg.Controllers
         {
             var vehicle = await db.Vehicles.FindAsync(id);
 
-            if (vehicle.Userid != User.Identity.GetUserId())
+            if (vehicle.UserId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
             }
