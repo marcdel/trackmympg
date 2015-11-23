@@ -1,0 +1,43 @@
+﻿@model IEnumerable<TrackMyMpg.Models.MakeStatistics>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Statistics By Make</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Minimum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Maximum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Average)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Minimum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maximum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Average)
+            </td>
+        </tr>
+    }
+
+</table>

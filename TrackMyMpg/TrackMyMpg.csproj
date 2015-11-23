@@ -171,6 +171,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MakesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -199,7 +200,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Make.cs" />
+    <Compile Include="Models\MakeStatistics.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="PreApplicationTasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -270,6 +273,7 @@
     <Content Include="Views\Makes\Details.cshtml" />
     <Content Include="Views\Makes\Edit.cshtml" />
     <Content Include="Views\Makes\Index.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
