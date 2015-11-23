@@ -17,9 +17,12 @@ namespace TrackMyMpg.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Vehicles
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Vehicles.ToListAsync());
+            var userId = User.Identity.GetUserId();
+            var vehicles = db.Vehicles.Where(vehicle => vehicle.Userid == userId);
+
+            return View(vehicles);
         }
 
         // GET: Vehicles/Details/5
