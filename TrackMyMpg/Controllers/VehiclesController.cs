@@ -101,6 +101,7 @@ namespace TrackMyMpg.Controllers
         }
 
         // GET: Vehicles/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -118,6 +119,7 @@ namespace TrackMyMpg.Controllers
         }
 
         // POST: Vehicles/Delete/5
+        [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
