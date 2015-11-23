@@ -21,7 +21,7 @@ namespace TrackMyMpg.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var vehicles = db.Vehicles.Where(vehicle => vehicle.UserId == userId);
+            var vehicles = db.Vehicles.Include(vehicle => vehicle.Make).Where(vehicle => vehicle.UserId == userId);
 
             return View(vehicles);
         }
@@ -34,7 +34,7 @@ namespace TrackMyMpg.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var vehicle = await db.Vehicles.FindAsync(id);
+            var vehicle = await db.Vehicles.Include(v => v.Make).SingleOrDefaultAsync(v => v.Id == id);
             if (vehicle == null || vehicle.UserId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
@@ -46,6 +46,7 @@ namespace TrackMyMpg.Controllers
         // GET: Vehicles/Create
         public ActionResult Create()
         {
+            ViewBag.MakeList = new SelectList(db.Makes, "Id", "Name");
             return View();
         }
 
@@ -54,17 +55,20 @@ namespace TrackMyMpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Userid,Make,Mpg")] Vehicle vehicle)
+        public async Task<ActionResult> Create([Bind(Include = "Id,UserId,MakeId,Make,Mpg")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
                 vehicle.UserId = User.Identity.GetUserId();
+                vehicle.Make = db.Makes.Find(vehicle.MakeId);
 
                 db.Vehicles.Add(vehicle);
                 await db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
+
+            ViewBag.MakeList = new SelectList(db.Makes, "Id", "Name", vehicle.MakeId);
 
             return View(vehicle);
         }
@@ -77,7 +81,7 @@ namespace TrackMyMpg.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var vehicle = await db.Vehicles.FindAsync(id);
+            var vehicle = await db.Vehicles.Include(v => v.Make).SingleOrDefaultAsync(v => v.Id == id);
             if (vehicle == null || vehicle.UserId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
@@ -91,7 +95,7 @@ namespace TrackMyMpg.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,UserId,Make,Mpg")] Vehicle vehicle)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,UserId,MakeId,Make,Mpg")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -99,6 +103,8 @@ namespace TrackMyMpg.Controllers
                 {
                     return HttpNotFound();
                 }
+
+                vehicle.Make = db.Makes.Find(vehicle.MakeId);
 
                 db.Entry(vehicle).State = EntityState.Modified;
                 await db.SaveChangesAsync();
@@ -117,7 +123,7 @@ namespace TrackMyMpg.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var vehicle = await db.Vehicles.FindAsync(id);
+            var vehicle = await db.Vehicles.Include(v => v.Make).SingleOrDefaultAsync(v => v.Id == id);
             if (vehicle == null || vehicle.UserId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
@@ -131,7 +137,7 @@ namespace TrackMyMpg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var vehicle = await db.Vehicles.FindAsync(id);
+            var vehicle = await db.Vehicles.Include(v => v.Make).SingleOrDefaultAsync(v => v.Id == id);
 
             if (vehicle.UserId != User.Identity.GetUserId())
             {
